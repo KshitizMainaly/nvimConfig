@@ -41,7 +41,10 @@
 │       ├── treesitter-textobjects.lua # Treesitter text objects
 │       ├── trouble.lua         # Diagnostics list
 │       ├── which-key.lua       # Keybinding hints
-│       └── wildest.lua         # Enhanced cmdline completion
+│       ├── avante.lua          # AI assistant (OpenRouter)
+│       ├── dressing.nvim       # Enhanced UI for avante input
+│       ├── image-preview.lua   # Image preview in WezTerm
+│       └── smear-cursor.lua    # Smooth cursor animation
 ```
 
 ---
