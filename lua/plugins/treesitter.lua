@@ -6,61 +6,24 @@ return {
     "nvim-treesitter/nvim-treesitter-textobjects",
   },
   config = function()
-    require("nvim-treesitter.configs").setup({
-      ensure_installed = {
-        "javascript", "typescript", "tsx", "html", "css", "json",
-        "yaml", "toml", "markdown", "markdown_inline", "python", "bash",
-        "lua", "vim", "vimdoc", "c", "gitignore", "diff",
-      },
-      auto_install = true,
-      highlight = { enable = true },
-      indent = { enable = true },
-      textobjects = {
-        select = {
-          enable = true,
-          lookahead = true,
-          keymaps = {
-            ["af"] = "@function.outer",
-            ["if"] = "@function.inner",
-            ["ac"] = "@class.outer",
-            ["ic"] = "@class.inner",
-            ["aa"] = "@parameter.outer",
-            ["ia"] = "@parameter.inner",
-            ["al"] = "@loop.outer",
-            ["il"] = "@loop.inner",
-            ["ai"] = "@conditional.outer",
-            ["ii"] = "@conditional.inner",
-            ["ab"] = "@block.outer",
-            ["ib"] = "@block.inner",
-            ["as"] = "@statement.outer",
-          },
-        },
-        move = {
-          enable = true,
-          set_jumps = true,
-          goto_next_start = {
-            ["]m"] = "@function.outer",
-            ["]]"] = "@class.outer",
-          },
-          goto_next_end = {
-            ["]M"] = "@function.outer",
-            ["]["] = "@class.outer",
-          },
-          goto_previous_start = {
-            ["[m"] = "@function.outer",
-            ["[["] = "@class.outer",
-          },
-          goto_previous_end = {
-            ["[M"] = "@function.outer",
-            ["[]"] = "@class.outer",
-          },
-        },
-        swap = {
-          enable = true,
-          swap_next = { ["<leader>a"] = "@parameter.inner" },
-          swap_previous = { ["<leader>A"] = "@parameter.inner" },
-        },
-      },
+    local ts_install = require("nvim-treesitter.install")
+    local parsers = {
+      "javascript", "typescript", "tsx", "html", "css", "json",
+      "yaml", "toml", "markdown", "markdown_inline", "python", "bash",
+      "lua", "vim", "vimdoc", "c", "gitignore", "diff",
+    }
+
+    for _, parser in ipairs(parsers) do
+      local installed, _ = pcall(vim.treesitter.language.inspect, parser)
+      if not installed then
+        pcall(ts_install.install, parser)
+      end
+    end
+
+    vim.api.nvim_create_autocmd("FileType", {
+      callback = function(args)
+        pcall(vim.treesitter.start, args.buf)
+      end,
     })
   end,
 }

@@ -7,7 +7,6 @@ return {
     wilder.set_option("pipeline", {
       wilder.branch(
         wilder.cmdline_pipeline({ fuzzy = 1, fuzzy_filter = wilder.vim_fuzzy_filter() }),
-        wilder.python_search_pipeline(),
         wilder.search_pipeline()
       ),
     })
