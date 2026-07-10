@@ -49,3 +49,12 @@ map("n", "gh", "0", opts)
 
 map("t", "<Esc>", "<C-\\><C-n>", opts)
 map("t", "jk", "<C-\\><C-n>", opts)
+
+map("n", "<leader>op", function()
+  local file = vim.fn.expand("%:p")
+  if file:match("%.pdf$") then
+    vim.fn.jobstart({ "cmd", "/c", "start", "SumatraPDF", file }, { detach = true })
+  else
+    vim.notify("Not a PDF file", vim.log.levels.WARN)
+  end
+end, { noremap = true, silent = true, desc = "Open PDF in SumatraPDF" })
