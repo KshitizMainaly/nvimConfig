@@ -127,8 +127,6 @@ return {
       filetypes = { "sh", "bash", "zsh" },
     })
 
-    vim.lsp.enable({ "lua_ls", "ts_ls", "pyright", "html", "cssls", "jsonls", "bashls" })
-
     vim.diagnostic.config({
       virtual_text = { prefix = "●" },
       signs = true,

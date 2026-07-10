@@ -44,7 +44,6 @@ return {
         "mason",
         "neo-tree",
         "neotest-summary",
-        "noice",
         "notify",
         "toggleterm",
       },
