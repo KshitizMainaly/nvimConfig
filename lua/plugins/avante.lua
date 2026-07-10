@@ -9,7 +9,7 @@ return {
       openrouter = {
         __inherited_from = "openai",
         endpoint = "https://openrouter.ai/api/v1",
-        model = "anthropic/claude-sonnet-4",
+        model = "openrouter/free",
         api_key_name = "OPENROUTER_API_KEY",
         headers = {
           ["HTTP-Referer"] = "http://localhost",
@@ -17,7 +17,7 @@ return {
         },
         extra_request_body = {
           temperature = 0.7,
-          max_tokens = 8192,
+          max_tokens = 4096,
         },
       },
     },
