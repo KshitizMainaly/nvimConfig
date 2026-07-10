@@ -1,0 +1,15 @@
+# Lazy.nvim
+lazy-lock.json
+lua/lazy/
+
+# Neovim
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Local config
+lua/local.lua
