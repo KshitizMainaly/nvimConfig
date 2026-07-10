@@ -6,18 +6,16 @@ return {
     "nvim-treesitter/nvim-treesitter-textobjects",
   },
   config = function()
-    local ts_install = require("nvim-treesitter.install")
-    local parsers = {
-      "javascript", "typescript", "tsx", "html", "css", "json",
-      "yaml", "toml", "markdown", "markdown_inline", "python", "bash",
-      "lua", "vim", "vimdoc", "c", "gitignore", "diff",
-    }
-
-    for _, parser in ipairs(parsers) do
-      local installed, _ = pcall(vim.treesitter.language.inspect, parser)
-      if not installed then
-        pcall(ts_install.install, parser)
-      end
+    local ok, ts = pcall(require, "nvim-treesitter")
+    if ok and ts.setup then
+      pcall(ts.setup, {
+        ensure_installed = {
+          "lua", "vim", "vimdoc", "markdown", "markdown_inline",
+          "javascript", "typescript", "tsx", "html", "css", "json",
+          "python", "bash", "yaml", "toml",
+        },
+        auto_install = false,
+      })
     end
 
     vim.api.nvim_create_autocmd("FileType", {
