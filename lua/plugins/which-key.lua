@@ -7,15 +7,7 @@ return {
       delay = 100,
       plugins = {
         spelling = { enabled = false },
-        presets = {
-          operators = false,
-          motions = false,
-          text_objects = false,
-          windows = false,
-          nav = false,
-        },
       },
-      hidden = { "v", "V", "<C-v>" },
     })
     wk.add({
       { "<leader>e", desc = "File Explorer" },
@@ -64,8 +56,6 @@ return {
       { "S", desc = "Flash Treesitter" },
       { "[", group = "Previous" },
       { "]", group = "Next" },
-      { "]", "t", desc = "Next TODO" },
-      { "[", "t", desc = "Previous TODO" },
     })
   end,
 }
