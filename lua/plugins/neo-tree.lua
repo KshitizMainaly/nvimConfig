@@ -7,6 +7,7 @@ return {
     "MunifTanjim/nui.nvim",
   },
   config = function()
+    local is_git_repo = vim.fn.system("git rev-parse --is-inside-work-tree 2>/dev/null"):match("true") ~= nil
     require("neo-tree").setup({
       close_if_last_window = true,
       filesystem = {
@@ -17,6 +18,9 @@ return {
           hide_dotfiles = false,
           hide_gitignored = false,
         },
+      },
+      git_status = {
+        enabled = is_git_repo,
       },
       window = {
         position = "left",
