@@ -44,5 +44,8 @@ map("n", "<leader>x", "<cmd>bdelete<cr>", opts)
 map("n", "<S-l>", "<cmd>bnext<cr>", opts)
 map("n", "<S-h>", "<cmd>bprevious<cr>", opts)
 
+map("n", "gl", "$", opts)
+map("n", "gh", "0", opts)
+
 map("t", "<Esc>", "<C-\\><C-n>", opts)
 map("t", "jk", "<C-\\><C-n>", opts)
