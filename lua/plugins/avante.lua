@@ -2,7 +2,7 @@ return {
   "yetone/avante.nvim",
   event = "VeryLazy",
   version = false,
-  build = "make",
+  build = false,
   opts = {
     provider = "openrouter",
     providers = {
