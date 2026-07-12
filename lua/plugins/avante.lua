@@ -9,7 +9,7 @@ return {
       openrouter = {
         __inherited_from = "openai",
         endpoint = "https://openrouter.ai/api/v1",
-        model = "openrouter/free",
+        model = "tencent/hy3:free",
         api_key_name = "OPENROUTER_API_KEY",
         headers = {
           ["HTTP-Referer"] = "http://localhost",
