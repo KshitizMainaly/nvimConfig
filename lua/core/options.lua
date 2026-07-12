@@ -36,11 +36,6 @@ opt.wildmode = "noselect:lastused,full"
 opt.wildoptions = "pum,fuzzy"
 opt.wildignorecase = true
 
-vim.api.nvim_create_autocmd("CmdlineChanged", {
-  pattern = { ":", "/", "?" },
-  callback = function() vim.fn.wildtrigger() end,
-})
-
 -- Ensure cmdline is visible with catppuccin
 vim.api.nvim_set_hl(0, "Cmdline", { bg = "#1e1e2e", fg = "#cdd6f4", bold = true })
 vim.api.nvim_set_hl(0, "MsgArea", { bg = "#1e1e2e", fg = "#cdd6f4" })
