@@ -29,6 +29,7 @@ return {
       support_paste_from_clipboard = true,
       auto_focus_sidebar = false,
       enable_token_counting = false,
+      use_cwd_as_project_root = true,
     },
     mappings = {
       ask = "<leader>aa",
