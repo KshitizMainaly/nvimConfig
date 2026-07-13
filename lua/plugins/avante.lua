@@ -27,6 +27,8 @@ return {
       auto_set_keymaps = true,
       auto_apply_diff_after_generation = true,
       support_paste_from_clipboard = true,
+      auto_focus_sidebar = false,
+      enable_token_counting = false,
     },
     mappings = {
       ask = "<leader>aa",
@@ -36,6 +38,8 @@ return {
         debug_prefix = "<leader>ad",
       },
     },
+    selector = { provider = "telescope" },
+    input = { provider = "dressing" },
   },
   dependencies = {
     "nvim-lua/plenary.nvim",
