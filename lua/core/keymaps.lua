@@ -4,7 +4,6 @@ local noremap_opts = { noremap = false, silent = true }
 
 vim.g.mapleader = " "
 
-map("i", "jk", "<Esc>", opts)
 map("i", "jj", "<Esc>", opts)
 map("i", "kj", "<Esc>", opts)
 
