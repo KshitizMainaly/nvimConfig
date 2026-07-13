@@ -2,7 +2,9 @@ return {
   "yetone/avante.nvim",
   event = "VeryLazy",
   version = false,
-  build = false,
+  -- Download the prebuilt Windows native libraries on install/update so the
+  -- `avante_templates.dll` stays in sync with the plugin (no Rust required).
+  build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false",
   opts = {
     provider = "openrouter",
     providers = {
