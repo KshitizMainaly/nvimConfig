@@ -4,9 +4,6 @@ local noremap_opts = { noremap = false, silent = true }
 
 vim.g.mapleader = " "
 
-map("i", "jj", "<Esc>", opts)
-map("i", "kj", "<Esc>", opts)
-
 map("n", "<leader>w", "<cmd>w<cr>", opts)
 map("n", "<leader>q", "<cmd>q<cr>", opts)
 map("n", "<leader>h", "<cmd>nohlsearch<cr>", opts)
