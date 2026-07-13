@@ -48,7 +48,6 @@ map("n", "gl", "$", opts)
 map("n", "gh", "0", opts)
 
 map("t", "<Esc>", "<C-\\><C-n>", opts)
-map("t", "jk", "<C-\\><C-n>", opts)
 
 map("n", "<leader>op", function()
   local file = vim.fn.expand("%:p")
