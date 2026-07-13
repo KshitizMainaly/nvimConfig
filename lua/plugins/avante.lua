@@ -39,7 +39,24 @@ return {
   },
   dependencies = {
     "nvim-lua/plenary.nvim",
-    "MunifTanjim/nui.nvim",
+    {
+      "MunifTanjim/nui.nvim",
+      config = function()
+        local Split = require("nui.split")
+        local orig_close = Split._close_window
+        Split._close_window = function(self)
+          if not self.winid then
+            return
+          end
+          if vim.api.nvim_win_is_valid(self.winid) and not self._.pending_quit then
+            if vim.fn.winnr("$") > 1 then
+              vim.api.nvim_win_close(self.winid, true)
+            end
+          end
+          self.winid = nil
+        end
+      end,
+    },
     "stevearc/dressing.nvim",
     "nvim-telescope/telescope.nvim",
     "hrsh7th/nvim-cmp",
