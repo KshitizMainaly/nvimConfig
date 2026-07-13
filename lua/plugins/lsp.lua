@@ -3,6 +3,7 @@ return {
   dependencies = {
     "mason-org/mason-lspconfig.nvim",
     "b0o/schemastore.nvim",
+    "hrsh7th/cmp-nvim-lsp",
   },
   config = function()
     require("mason").setup()
@@ -16,29 +17,40 @@ return {
         "jsonls",
         "bashls",
       },
-      automatic_installation = true,
+      -- `automatic_installation` is no longer a valid option; ensure_installed
+      -- handles installation and automatic_enable (default true) enables servers.
+      automatic_enable = true,
     })
 
-    local on_attach = function(_, bufnr)
-      local map = function(keys, func, desc)
-        vim.keymap.set("n", keys, func, { buffer = bufnr, desc = "LSP: " .. desc })
-      end
-      map("gd", vim.lsp.buf.definition, "Go to definition")
-      map("gD", vim.lsp.buf.declaration, "Go to declaration")
-      map("gr", vim.lsp.buf.references, "References")
-      map("gi", vim.lsp.buf.implementation, "Go to implementation")
-      map("K", vim.lsp.buf.hover, "Hover documentation")
-      map("<leader>rn", vim.lsp.buf.rename, "Rename symbol")
-      map("<leader>ca", vim.lsp.buf.code_action, "Code action")
-      map("<leader>D", vim.lsp.buf.type_definition, "Type definition")
-      map("<leader>ds", vim.lsp.buf.document_symbol, "Document symbols")
-    end
+    -- LSP keymaps attach per-buffer whenever any server attaches. This is more
+    -- reliable than an on_attach that can be overridden by per-server config.
+    vim.api.nvim_create_autocmd("LspAttach", {
+      desc = "LSP keymaps",
+      callback = function(event)
+        local map = function(keys, func, desc)
+          vim.keymap.set("n", keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
+        end
+        map("gd", vim.lsp.buf.definition, "Go to definition")
+        map("gD", vim.lsp.buf.declaration, "Go to declaration")
+        map("gr", vim.lsp.buf.references, "References")
+        map("gi", vim.lsp.buf.implementation, "Go to implementation")
+        map("K", vim.lsp.buf.hover, "Hover documentation")
+        map("<leader>rn", vim.lsp.buf.rename, "Rename symbol")
+        map("<leader>ca", vim.lsp.buf.code_action, "Code action")
+        map("<leader>D", vim.lsp.buf.type_definition, "Type definition")
+        map("<leader>ds", vim.lsp.buf.document_symbol, "Document symbols")
+      end,
+    })
 
+    -- Merge nvim-cmp's capabilities so servers advertise everything cmp supports.
     local capabilities = vim.lsp.protocol.make_client_capabilities()
+    local ok_cmp, cmp_lsp = pcall(require, "cmp_nvim_lsp")
+    if ok_cmp then
+      capabilities = vim.tbl_deep_extend("force", capabilities, cmp_lsp.default_capabilities())
+    end
 
     vim.lsp.config("*", {
       capabilities = capabilities,
-      on_attach = on_attach,
     })
 
     vim.lsp.config("lua_ls", {
