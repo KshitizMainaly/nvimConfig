@@ -38,6 +38,10 @@ return {
       toggle = {
         debug_prefix = "<leader>ad",
       },
+      submit = {
+        normal = "<CR>",
+        insert = "<CR>",
+      },
     },
     selector = { provider = "telescope" },
     input = { provider = "dressing" },
