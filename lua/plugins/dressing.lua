@@ -1,5 +1,6 @@
 return {
   "stevearc/dressing.nvim",
+  event = "VeryLazy",
   opts = {},
   config = function(_, opts)
     require("dressing").setup(opts)

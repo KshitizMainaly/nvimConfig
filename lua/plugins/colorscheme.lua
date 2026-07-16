@@ -7,6 +7,11 @@ return {
       flavour = "mocha",
       transparent_background = false,
       term_colors = true,
+      -- Compile highlight groups to disk so startup is faster after first run.
+      compile = {
+        enabled = true,
+        path = vim.fn.stdpath("cache") .. "/catppuccin",
+      },
       integrations = {
         cmp = true,
         gitsigns = true,

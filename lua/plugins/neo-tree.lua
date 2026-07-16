@@ -11,22 +11,59 @@ return {
     require("neo-tree").setup({
       close_if_last_window = true,
       enable_git_status = true,
+      enable_diagnostics = false, -- already shown via gitsigns/other means; saves redraws
+      popup_border_style = "rounded",
+      open_files_do_not_replace_types = { "terminal", "trouble", "qf" },
+      sort_case_insensitive = true,
       filesystem = {
-        follow_current_file = { enabled = true },
+        follow_current_file = { enabled = true, leave_dirs_open = true },
         use_libuv_file_watcher = true,
+        bind_to_cwd = false, -- don't change global cwd when browsing
+        async_directory_scan = "auto",
+        scan_mode = "shallow", -- faster in large repos; deep scan on expand
         filtered_items = {
           visible = false,
           hide_dotfiles = false,
           hide_gitignored = false,
+          hide_by_name = {
+            ".git",
+            "node_modules",
+            ".next",
+            "target",
+            "__pycache__",
+          },
         },
       },
       window = {
         position = "left",
         width = 35,
+        mappings = {
+          ["<space>"] = "none", -- don't shadow leader
+          ["h"] = "close_node",
+          ["l"] = "open",
+          ["o"] = "open",
+        },
       },
       default_component_configs = {
         indent = {
           with_expanders = true,
+        },
+        icon = {
+          folder_closed = "",
+          folder_open = "",
+          folder_empty = "",
+          default = "",
+        },
+        modified = { symbol = "●" },
+        git_status = {
+          symbols = {
+            added = "+",
+            modified = "~",
+            deleted = "-",
+            renamed = "→",
+            untracked = "?",
+            ignored = "◌",
+          },
         },
       },
     })

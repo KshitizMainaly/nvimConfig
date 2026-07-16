@@ -1,6 +1,25 @@
 return {
   "yetone/avante.nvim",
-  event = "VeryLazy",
+  -- Load only when an Avante command or keybinding is first used, instead of
+  -- on VeryLazy, so the heavy AI plugin (and its deps) don't load after startup.
+  cmd = {
+    "AvanteAsk",
+    "AvanteChat",
+    "AvanteEdit",
+    "AvanteToggle",
+    "AvanteRefresh",
+    "AvanteFocus",
+    "AvanteStop",
+    "AvanteClear",
+    "AvanteModels",
+    "AvanteHistory",
+    "AvanteBuild",
+  },
+  keys = {
+    { "<leader>aa", "<cmd>AvanteAsk<cr>", desc = "Avante: Ask" },
+    { "<leader>ae", mode = { "n", "v" }, ":AvanteEdit<cr>", desc = "Avante: Edit", silent = true },
+    { "<leader>ar", "<cmd>AvanteRefresh<cr>", desc = "Avante: Refresh" },
+  },
   version = false,
   -- Download the prebuilt Windows native libraries on install/update so the
   -- `avante_templates.dll` stays in sync with the plugin (no Rust required).

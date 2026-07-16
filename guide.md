@@ -74,7 +74,7 @@ Leader key = `Space`
 | `i` / `a` / `o` | NORMAL | Enter INSERT mode |
 | `I` / `A` / `O` | NORMAL | Insert at start/end of line / new line above |
 | `u` | NORMAL | Undo |
-| `Ctrl+r` | NORMAL | Redo |
+| `Ctrl+r` / `Shift+U` | NORMAL | Redo |
 | `.` | NORMAL | Repeat last action |
 | `x` | NORMAL | Delete character under cursor |
 | `dd` | NORMAL | Delete entire line |
@@ -127,6 +127,9 @@ Press `Space` and wait — which-key shows all available options.
 | `<Space>xQ` | Quickfix list (Trouble) |
 | `<Space>xt` | Todo list (Trouble) |
 | `<Space>xT` | Todo/Fix/Fixme list (Trouble) |
+| `<Space>j` | Move line / selection down |
+| `<Space>k` | Move line / selection up |
+| `<Space>1..5` | Jump to buffer 1-5 |
 
 ### LSP (Language Intelligence)
 
@@ -298,7 +301,7 @@ Supported keywords: `TODO`, `FIXME`, `BUG`, `HACK`, `WARN`, `NOTE`, `TEST`, `PER
 | `Ctrl+h/j/k/l` | Move between windows (splits) |
 | `Shift+l` | Next buffer |
 | `Shift+h` | Previous buffer |
-| `Alt+1..5` | Jump to buffer 1-5 |
+| `<Space>1..5` | Jump to buffer 1-5 |
 
 ### Visual Mode
 
@@ -313,8 +316,10 @@ Supported keywords: `TODO`, `FIXME`, `BUG`, `HACK`, `WARN`, `NOTE`, `TEST`, `PER
 
 | Keybinding | Action |
 |------------|--------|
-| `Alt+j` | Move line/selection down |
-| `Alt+k` | Move line/selection up |
+| `<Space>j` | Move line/selection down |
+| `<Space>k` | Move line/selection up |
+
+> Why not `Alt+j/k`? With CapsLock bound to Escape, a fast "Caps then j/k" is sent to Neovim as an Esc-j/k sequence, which terminals encode exactly like `Alt+j/k`. Using the leader prefix avoids the accidental line-jumps.
 
 ### Terminal
 

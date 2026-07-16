@@ -1,5 +1,10 @@
 return {
   "mason-org/mason.nvim",
+  -- Lazy-load: BufReadPre sets up Mason/mason-lspconfig before the first file
+  -- is read, so servers are enabled and attach on that first open. `cmd` keeps
+  -- :Mason available without having to open a file first.
+  event = "BufReadPre",
+  cmd = "Mason",
   dependencies = {
     "mason-org/mason-lspconfig.nvim",
     "b0o/schemastore.nvim",

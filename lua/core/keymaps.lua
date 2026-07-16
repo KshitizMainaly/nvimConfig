@@ -8,6 +8,9 @@ map("n", "<leader>w", "<cmd>w<cr>", { desc = "Save" })
 map("n", "<leader>q", "<cmd>q<cr>", { desc = "Quit" })
 map("n", "<leader>h", "<cmd>nohlsearch<cr>", { desc = "Clear highlight" })
 
+-- Redo on Shift+U (Ctrl+r still works too); replaces Vim's default undo-line U.
+map("n", "U", "<C-r>", { desc = "Redo" })
+
 -- Window navigation
 map("n", "<C-h>", "<C-w>h", opts)
 map("n", "<C-j>", "<C-w>j", opts)
@@ -19,26 +22,28 @@ map("v", "<", "<gv", opts)
 map("v", ">", ">gv", opts)
 
 -- Move lines up/down
-map("n", "<A-j>", ":m .+1<cr>==", opts)
-map("n", "<A-k>", ":m .-2<cr>==", opts)
-map("v", "<A-j>", ":m '>+1<cr>gv=gv", opts)
-map("v", "<A-k>", ":m '<-2<cr>gv=gv", opts)
+-- NOTE: <A-j>/<A-k> are intentionally avoided. With CapsLock bound to Esc,
+-- a fast "Caps then j/k" produces an Esc-j/k sequence that Neovim (and most
+-- terminals) interpret as <M-j>/<M-k>, which would move the line unexpectedly.
+map("n", "<leader>j", ":m .+1<cr>==", { desc = "Move line down" })
+map("n", "<leader>k", ":m .-2<cr>==", { desc = "Move line up" })
+map("v", "<leader>j", ":m '>+1<cr>gv=gv", { desc = "Move selection down" })
+map("v", "<leader>k", ":m '<-2<cr>gv=gv", { desc = "Move selection up" })
 
 -- Explorer / finders
 map("n", "<leader>e", "<cmd>Neotree toggle<cr>", { desc = "File Explorer" })
-map("n", "<leader>f", "<cmd>Telescope find_files<cr>", { desc = "Find Files" })
-map("n", "<leader>/", "<cmd>Telescope live_grep<cr>", { desc = "Live Grep" })
+-- <leader>f (find_files) and <leader>/ (live_grep) are defined as lazy `keys`
+-- in lua/plugins/telescope.lua so they load Telescope on demand.
 
 -- Buffers (grouped under <leader>b to avoid prefix conflicts)
 map("n", "<leader>bb", "<cmd>Telescope buffers<cr>", { desc = "List Buffers" })
 map("n", "<leader>bd", "<cmd>bdelete<cr>", { desc = "Close Buffer" })
 map("n", "<S-l>", "<cmd>bnext<cr>", { desc = "Next buffer" })
 map("n", "<S-h>", "<cmd>bprevious<cr>", { desc = "Previous buffer" })
-map("n", "<A-1>", "<cmd>BufferLineGoToBuffer 1<cr>", opts)
-map("n", "<A-2>", "<cmd>BufferLineGoToBuffer 2<cr>", opts)
-map("n", "<A-3>", "<cmd>BufferLineGoToBuffer 3<cr>", opts)
-map("n", "<A-4>", "<cmd>BufferLineGoToBuffer 4<cr>", opts)
-map("n", "<A-5>", "<cmd>BufferLineGoToBuffer 5<cr>", opts)
+-- Buffer 1..5 via <leader> instead of Alt to avoid the CapsLock-as-Esc / Meta ambiguity.
+for i = 1, 5 do
+  map("n", "<leader>" .. i, "<cmd>BufferLineGoToBuffer " .. i .. "<cr>", { desc = "Go to buffer " .. i })
+end
 
 -- Git
 map("n", "<leader>gs", "<cmd>Telescope git_status<cr>", { desc = "Git Status" })

@@ -11,7 +11,7 @@ return {
         java = false,
       },
       fast_wrap = {
-        map = "<M-e>",
+        map = "<C-e>",
       },
     })
 

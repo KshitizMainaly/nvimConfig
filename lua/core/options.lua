@@ -20,6 +20,7 @@ opt.splitbelow = true
 opt.undofile = true
 opt.updatetime = 200
 opt.timeoutlen = 250
+opt.ttimeoutlen = 10 -- fast terminal key-code sequences (e.g. arrow/function keys)
 opt.completeopt = "menu,menuone,noselect"
 opt.mouse = "a"
 opt.showmode = false
