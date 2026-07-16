@@ -1,10 +1,17 @@
+-- Catppuccin flavour — change the value of `flavour` below to switch themes:
+--   "latte"     -- Light (white background)
+--   "frappe"    -- Medium dark
+--   "macchiato" -- Darker
+--   "mocha"     -- Darkest (default)
+local flavour = "latte"
+
 return {
   "catppuccin/nvim",
   name = "catppuccin",
   priority = 1000,
   config = function()
     require("catppuccin").setup({
-      flavour = "mocha",
+      flavour = flavour,
       transparent_background = false,
       term_colors = true,
       -- Compile highlight groups to disk so startup is faster after first run.
