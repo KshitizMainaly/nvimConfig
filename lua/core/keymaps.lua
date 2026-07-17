@@ -22,9 +22,12 @@ map("v", "<", "<gv", opts)
 map("v", ">", ">gv", opts)
 
 -- Move lines up/down
--- NOTE: <A-j>/<A-k> are intentionally avoided. With CapsLock bound to Esc,
--- a fast "Caps then j/k" produces an Esc-j/k sequence that Neovim (and most
--- terminals) interpret as <M-j>/<M-k>, which would move the line unexpectedly.
+-- WARNING: <A-j>/<A-k> may trigger accidentally with CapsLock→Esc mapping.
+-- Fast "Caps then j/k" produces Esc+j/k → interpreted as Alt+j/k.
+map("n", "<A-j>", ":m .+1<cr>==", { desc = "Move line down" })
+map("n", "<A-k>", ":m .-2<cr>==", { desc = "Move line up" })
+map("v", "<A-j>", ":m '>+1<cr>gv=gv", { desc = "Move selection down" })
+map("v", "<A-k>", ":m '<-2<cr>gv=gv", { desc = "Move selection up" })
 map("n", "<leader>j", ":m .+1<cr>==", { desc = "Move line down" })
 map("n", "<leader>k", ":m .-2<cr>==", { desc = "Move line up" })
 map("v", "<leader>j", ":m '>+1<cr>gv=gv", { desc = "Move selection down" })
