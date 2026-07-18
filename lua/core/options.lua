@@ -25,7 +25,7 @@ opt.completeopt = "menu,menuone,noselect"
 opt.mouse = "a"
 opt.showmode = false
 opt.fillchars = { eob = " " }
-opt.lazyredraw = false
+opt.lazyredraw = true
 opt.synmaxcol = 200
 opt.ttyfast = true
 opt.virtualedit = "block"

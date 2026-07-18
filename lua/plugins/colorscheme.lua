@@ -3,7 +3,7 @@
 --   "frappe"    -- Medium dark
 --   "macchiato" -- Darker
 --   "mocha"     -- Darkest (default)
-local flavour = "latte"
+local flavour = "mocha"
 
 return {
   "catppuccin/nvim",
@@ -26,7 +26,6 @@ return {
         telescope = { enabled = true },
         neo_tree = true,
         which_key = true,
-        indent_blankline = { enabled = true },
         mini = { enabled = true },
       },
     })
