@@ -17,6 +17,7 @@ return {
       { "<leader>q", desc = "Quit" },
       { "<leader>h", desc = "No Highlight" },
       { "<leader>P", desc = "Open PDF (Sumatra)" },
+      { "<leader>T", desc = "Toggle Terminal (bottom)" },
       { "<leader>o", desc = "Symbol Outline" },
       { "<leader>O", desc = "Aerial Nav" },
       { "<leader>j", desc = "Move line/selection down" },
