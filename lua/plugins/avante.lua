@@ -24,13 +24,43 @@ return {
   -- Download the prebuilt Windows native libraries on install/update so the
   -- `avante_templates.dll` stays in sync with the plugin (no Rust required).
   build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false",
+  config = function(_, opts)
+    require("avante").setup(opts)
+    -- Force set Shift+Tab in avante sidebar buffers to override nvim-cmp's
+    -- insert-mode mapping that can intercept it.
+    vim.api.nvim_create_autocmd("FileType", {
+      pattern = { "AvanteInput", "AvanteResult" },
+      callback = function(ev)
+        -- Normal mode: cycle focus backward through avante sidebar windows
+        vim.keymap.set("n", "<S-Tab>", function()
+          local wins = {}
+          for _, w in ipairs(vim.api.nvim_list_wins()) do
+            local ft = vim.bo[vim.api.nvim_win_get_buf(w)].filetype
+            if ft:match("^Avante") then
+              table.insert(wins, w)
+            end
+          end
+          if #wins < 2 then return end
+          local cur = vim.api.nvim_get_current_win()
+          for i, w in ipairs(wins) do
+            if w == cur then
+              local prev = i - 1
+              if prev < 1 then prev = #wins end
+              vim.api.nvim_set_current_win(wins[prev])
+              return
+            end
+          end
+        end, { buffer = ev.buf, noremap = true, silent = true, desc = "Avante: Reverse switch window" })
+      end,
+    })
+  end,
   opts = {
     provider = "openrouter",
     providers = {
       openrouter = {
         __inherited_from = "openai",
         endpoint = "https://openrouter.ai/api/v1",
-        model = "tencent/hy3:free",
+        model = "openrouter/free",
         api_key_name = "OPENROUTER_API_KEY",
         headers = {
           ["HTTP-Referer"] = "http://localhost",
@@ -56,12 +86,16 @@ return {
       ask = "<leader>aa",
       edit = "<leader>ae",
       refresh = "<leader>ar",
+      stop = "<leader>as",
       toggle = {
         debug_prefix = "<leader>ad",
       },
       submit = {
         normal = "<CR>",
         insert = "<CR>",
+      },
+      sidebar = {
+        reverse_switch_windows = "<S-Tab>",
       },
     },
     selector = { provider = "telescope" },
