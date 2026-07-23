@@ -28,10 +28,9 @@ map("n", "<A-j>", ":m .+1<cr>==", { desc = "Move line down" })
 map("n", "<A-k>", ":m .-2<cr>==", { desc = "Move line up" })
 map("v", "<A-j>", ":m '>+1<cr>gv=gv", { desc = "Move selection down" })
 map("v", "<A-k>", ":m '<-2<cr>gv=gv", { desc = "Move selection up" })
-map("n", "<leader>j", ":m .+1<cr>==", { desc = "Move line down" })
-map("n", "<leader>k", ":m .-2<cr>==", { desc = "Move line up" })
-map("v", "<leader>j", ":m '>+1<cr>gv=gv", { desc = "Move selection down" })
-map("v", "<leader>k", ":m '<-2<cr>gv=gv", { desc = "Move selection up" })
+
+-- Select all (Helix-style %)
+map("n", "<leader>j", "ggVG", { desc = "Select all" })
 
 -- Explorer / finders
 map("n", "<leader>e", "<cmd>Neotree toggle<cr>", { desc = "File Explorer" })
@@ -70,3 +69,6 @@ map("n", "<leader>P", function()
     vim.notify("Not a PDF file", vim.log.levels.WARN)
   end
 end, { noremap = true, silent = true, desc = "Open PDF in SumatraPDF" })
+
+-- Avante: stop current AI generation
+map("n", "<leader>as", "<cmd>AvanteStop<cr>", { desc = "Avante: Stop generation" })
